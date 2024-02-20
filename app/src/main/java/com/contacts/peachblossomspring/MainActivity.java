@@ -2,7 +2,6 @@ package com.contacts.peachblossomspring;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -33,16 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.addContactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 插入数据并获取是否成功插入数据的标志
-                boolean isInserted = insertTestData();
+        binding.appBarMain.addContactButton.setOnClickListener(view -> {
+            // 插入数据并获取是否成功插入数据的标志
+            boolean isInserted = insertTestData();
 
-                // 如果成功插入数据，刷新页面
-                if (isInserted) {
-                    recreate();
-                }
+            // 如果成功插入数据，刷新页面
+            if (isInserted) {
+                recreate();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
