@@ -1,4 +1,4 @@
-package com.contacts.peachblossomspring.ui.slideshow;
+package com.contacts.peachblossomspring.ui.collect;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.contacts.peachblossomspring.databinding.FragmentSlideshowBinding;
+import com.contacts.peachblossomspring.databinding.FragmentGalleryBinding;
 
-public class SlideshowFragment extends Fragment {
+public class CollectFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentGalleryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        CollectViewModel collectViewModel =
+                new ViewModelProvider(this).get(CollectViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGallery;
+        collectViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

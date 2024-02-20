@@ -1,16 +1,16 @@
-package com.contacts.peachblossomspring.ui.slideshow;
+package com.contacts.peachblossomspring.ui.collect;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class CollectViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public CollectViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("收藏夹功能待开发");
     }
 
     public LiveData<String> getText() {
