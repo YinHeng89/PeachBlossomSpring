@@ -1,4 +1,4 @@
-package com.contacts.peachblossomspring.ui.contacts; // 定义了一个名为com.contacts.peachblossomspring.ui.contacts的包
+package com.contacts.peachblossomspring.ui.contacts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,9 +9,7 @@ import android.os.Bundle; // 导入android.os.Bundle类
 import android.view.LayoutInflater; // 导入android.view.LayoutInflater类
 import android.view.View; // 导入android.view.View类
 import android.view.ViewGroup; // 导入android.view.ViewGroup类
-import android.widget.AdapterView;
 import android.widget.ListView;
-
 import androidx.fragment.app.Fragment; // 导入androidx.fragment.app.Fragment类
 
 import com.contacts.peachblossomspring.R;
@@ -35,16 +33,13 @@ public class HomeFragment extends Fragment {
         ContactsList adapter = new ContactsList(requireContext(), data);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contact contact = data.get(position);
-                String phone = contact.getPhone();
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Contact contact = data.get(position);
+            String phone = contact.getPhone();
 
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + phone));
-                startActivity(intent);
-            }
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
         });
 
         return view;
