@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">隐私通讯录</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">隐私通讯录</string>
+    <string name="nav_header_subtitle">开发者：k332159915@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">设置</string>
+
+    <string name="menu_home">通讯录</string>
+    <string name="menu_gallery">收藏夹</string>
+    <string name="menu_slideshow">关于隐私通讯录</string>
+</resources>
