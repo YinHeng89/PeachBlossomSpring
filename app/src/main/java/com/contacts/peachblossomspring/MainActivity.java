@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             if (count > 0) {
                 String successMessage = "成功导入" + count + "个联系人";
                 if (duplicateCount > 0) {
-                    successMessage += "，已忽略" + duplicateCount + "人";
+                    successMessage += "，忽略" + duplicateCount + "人";
                 }
                 Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
             } else {
