@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "当前联系人已存在", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "导入的联系人已存在", Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e) {
