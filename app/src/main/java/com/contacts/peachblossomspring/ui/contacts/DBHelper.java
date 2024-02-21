@@ -1,14 +1,11 @@
 package com.contacts.peachblossomspring.ui.contacts;
 
 // 导入所需的Android和Java类
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 // 定义一个公开的DBHelper类，它继承自SQLiteOpenHelper
 public class DBHelper extends SQLiteOpenHelper {
@@ -63,26 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // 定义一个公开的getAllContacts方法，用于从数据库中获取所有的联系人
-    public List<Contact> getAllContacts() {
-        // 创建一个联系人列表，并查询数据库
-        List<Contact> contactList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_CONTACTS;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // 遍历Cursor对象，并将每一行的数据添加到联系人列表中
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                @SuppressLint("Range") String phone = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE));
-                Contact contact = new Contact(name, phone);
-                contactList.add(contact);
-            } while (cursor.moveToNext());
-        }
-        // 关闭Cursor和数据库，并返回联系人列表
-        cursor.close();
-        db.close();
-        return contactList;
-    }
+    //已废弃
 
     //检查一个联系人是否已经存在于数据库
     public boolean isContactExists(String name, String phone) {
