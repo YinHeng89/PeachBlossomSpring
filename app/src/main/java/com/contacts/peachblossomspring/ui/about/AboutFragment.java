@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.contacts.peachblossomspring.databinding.FragmentSlideshowBinding;
+import com.contacts.peachblossomspring.databinding.FragmentAboutBinding;
 
 public class AboutFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentAboutBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         AboutViewModel aboutViewModel =
                 new ViewModelProvider(this).get(AboutViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
+        final TextView textView = binding.textAbout;
         aboutViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

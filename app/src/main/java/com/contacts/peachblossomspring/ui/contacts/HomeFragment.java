@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import com.contacts.peachblossomspring.R;
@@ -49,6 +50,16 @@ public class HomeFragment extends Fragment {
             intent.setData(Uri.parse("tel:" + phone));
             startActivity(intent);
         });
+
+        // 获取ImageView组件
+        ImageView defaultImage = view.findViewById(R.id.default_image);
+
+        // 如果联系人列表为空,显示默认图片;否则隐藏默认图片
+        if (data.isEmpty()) {
+            defaultImage.setVisibility(View.VISIBLE);
+        } else {
+            defaultImage.setVisibility(View.GONE);
+        }
 
         // 返回View对象
         return view;

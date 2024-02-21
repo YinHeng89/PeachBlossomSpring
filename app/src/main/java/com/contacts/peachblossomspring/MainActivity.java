@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
             recreate();
 
             if (count > 0) {
-                String successMessage = "已成功导入" + count + "联系人";
+                String successMessage = "成功导入" + count + "个联系人";
                 if (duplicateCount > 0) {
-                    successMessage += "，忽略" + duplicateCount + "人";
+                    successMessage += "，已忽略" + duplicateCount + "人";
                 }
                 Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
             } else {
@@ -132,11 +132,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
+    //打开文件选择器导入本地联系人
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // 检查被点击的菜单项的ID是否与import-contacts菜单项的ID匹配
-        if (item.getItemId() == R.id.importcontacts) {
+        if (item.getItemId() == R.id.importcontactsstorage) {
             // 如果匹配，则调用openFilePickerIntent()方法，触发导入联系人的功能
             openFilePickerIntent();
             // 返回true表示已经处理了菜单项的点击事件
@@ -145,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
         // 如果被点击的菜单项不是import-contacts，交给父类处理
         return super.onOptionsItemSelected(item);
     }
-
-
 
     @Override
     public boolean onSupportNavigateUp() {

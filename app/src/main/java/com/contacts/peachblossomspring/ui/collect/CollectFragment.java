@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.contacts.peachblossomspring.databinding.FragmentGalleryBinding;
+import com.contacts.peachblossomspring.databinding.FragmentCollectBinding;
 
 public class CollectFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentCollectBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CollectViewModel collectViewModel =
                 new ViewModelProvider(this).get(CollectViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentCollectBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
+        final TextView textView = binding.textCollect;
         collectViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
