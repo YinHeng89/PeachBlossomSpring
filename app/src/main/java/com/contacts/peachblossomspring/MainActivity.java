@@ -38,8 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
         // 设置应用栏
         setSupportActionBar(binding.appBarMain.toolbar);
+
         // 设置添加联系人按钮的点击事件
-        binding.appBarMain.addContactButton.setOnClickListener(view -> openFilePickerIntent());
+        binding.appBarMain.addContactButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
+            addContactLauncher.launch(intent);
+        });
+
+
 
         // 设置抽屉导航
         DrawerLayout drawer = binding.drawerLayout;
@@ -152,4 +158,14 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private ActivityResultLauncher<Intent> addContactLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    // 刷新联系人列表
+                    recreate();
+                }
+            }
+    );
 }
