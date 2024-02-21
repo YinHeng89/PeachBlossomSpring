@@ -4,34 +4,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.contacts.peachblossomspring.databinding.FragmentAboutBinding;
+import com.contacts.peachblossomspring.R;
 
 public class AboutFragment extends Fragment {
 
-    private FragmentAboutBinding binding;
+    private AboutViewModel aboutViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        AboutViewModel aboutViewModel =
-                new ViewModelProvider(this).get(AboutViewModel.class);
-
-        binding = FragmentAboutBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textAbout;
-        aboutViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        aboutViewModel = new ViewModelProvider(this).get(AboutViewModel.class);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+
+        ImageView logoImage = view.findViewById(R.id.image_logo);
+        logoImage.setImageResource(R.drawable.logo_image);
+
+        TextView aboutTextView = view.findViewById(R.id.text_about);
+        aboutViewModel.getText().observe(getViewLifecycleOwner(), aboutTextView::setText);
+
+        return view;
     }
 }
