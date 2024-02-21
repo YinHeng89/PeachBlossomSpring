@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private ActivityResultLauncher<Intent> addContactLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> addContactLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
