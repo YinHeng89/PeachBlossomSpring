@@ -35,9 +35,12 @@ public class MainActivity extends AppCompatActivity {
         com.contacts.peachblossomspring.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // 设置应用栏
         setSupportActionBar(binding.appBarMain.toolbar);
+        // 设置添加联系人按钮的点击事件
         binding.appBarMain.addContactButton.setOnClickListener(view -> openFilePickerIntent());
 
+        // 设置抽屉导航
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -48,13 +51,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // 初始化数据库帮助类
         dbHelper = new DBHelper(this);
 
+        // 注册文件选择器启动器
         openFilePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 this::handleFilePickerResult);
     }
 
+    // 打开文件选择器
     private void openFilePickerIntent() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         openFilePickerLauncher.launch(intent);
     }
 
+    // 处理文件选择器结果
     private void handleFilePickerResult(ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
             Intent data = result.getData();
@@ -81,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // 导入VCF文件中的联系人
     private void importVCFFile(InputStream stream) {
         VCFParser parser = new VCFParser();
         try {
