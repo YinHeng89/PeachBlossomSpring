@@ -6,7 +6,8 @@
     <string name="nav_header_subtitle">开发者：k332159915@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">设置</string>
-
+    <string name="import_contacts">导入联系人</string>
+    //汉堡菜单
     <string name="menu_home">通讯录</string>
     <string name="menu_gallery">收藏夹</string>
     <string name="menu_slideshow">关于隐私通讯录</string>

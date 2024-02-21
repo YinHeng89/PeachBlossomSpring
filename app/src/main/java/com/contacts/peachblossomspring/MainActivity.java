@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import com.contacts.peachblossomspring.ui.contacts.Contact;
 import com.contacts.peachblossomspring.ui.contacts.DBHelper;
@@ -125,9 +126,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // 加载菜单资源文件，将菜单项添加到菜单中
         getMenuInflater().inflate(R.menu.main, menu);
+        // 返回true表示菜单已经被创建
         return true;
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // 检查被点击的菜单项的ID是否与import-contacts菜单项的ID匹配
+        if (item.getItemId() == R.id.importcontacts) {
+            // 如果匹配，则调用openFilePickerIntent()方法，触发导入联系人的功能
+            openFilePickerIntent();
+            // 返回true表示已经处理了菜单项的点击事件
+            return true;
+        }
+        // 如果被点击的菜单项不是import-contacts，交给父类处理
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
