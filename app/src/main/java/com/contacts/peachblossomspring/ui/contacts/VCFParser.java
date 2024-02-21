@@ -35,7 +35,7 @@ public class VCFParser {
                 phone = null;
             } else if (line.startsWith("FN;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:")) {
                 name = decodeQuotedPrintable(line.substring(41)); // 解码并保存名字
-            } else if (line.startsWith("TEL;CELL:") || line.startsWith("TEL;CELL;PREF:") || line.startsWith("TEL;HOME:") || line.startsWith("TEL;WORK:")|| line.startsWith("TEL;VOICE:")) {
+            } else if (line.startsWith("TEL;CELL:") || line.startsWith("TEL;CELL;PREF:") || line.startsWith("TEL;HOME:") || line.startsWith("TEL;WORK:")) {
                 phone = line.substring(line.indexOf(":") + 1); // 提取电话号码 //其中 || line.startsWith("TEL;WORK:") 是一条规则
                 if (existingPhones.contains(phone)) {
                     // 如果电话号码已存在，跳过当前联系人
