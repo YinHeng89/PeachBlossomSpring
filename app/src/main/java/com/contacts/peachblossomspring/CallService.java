@@ -6,10 +6,15 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
 public class CallService extends Service {
+    private boolean isInCall = false; // 标志变量，用于表示是否正在通话中
+    private View windowsView;
+    private WindowManager windowManager;
 
     @Override
     public void onCreate() {
@@ -22,18 +27,26 @@ public class CallService extends Service {
                 super.onCallStateChanged(state, phoneNumber);
 
                 switch (state) {
-                    case TelephonyManager.CALL_STATE_IDLE:
-                        // 通话结束，停止FloatingWindowService
-                        stopService(new Intent(CallService.this, FloatingWindowService.class));
+                    case TelephonyManager.CALL_STATE_IDLE: // 通话空闲状态
+                        if (isInCall) {
+                            // 通话结束,停止FloatingWindowService
+//                            stopService(new Intent(CallService.this, FloatingWindowService.class));
+                            isInCall = false; // 将通话状态标志设置为false
+                            View myView = windowsView.findViewById(R.id.textViewFloating);
+                            myView.setVisibility(View.GONE);
+//                            windowManager.removeView(myView);
+                        }
                         break;
-                    case TelephonyManager.CALL_STATE_RINGING:
-                        // 电话响铃，启动FloatingWindowService并显示悬浮窗
+                    case TelephonyManager.CALL_STATE_RINGING: // 电话响铃状态
+                        // 电话响铃,启动FloatingWindowService并显示悬浮窗
                         Intent updateIntent = new Intent(CallService.this, FloatingWindowService.class);
                         updateIntent.setAction(FloatingWindowService.ACTION_UPDATE_TEXT);
                         updateIntent.putExtra(FloatingWindowService.EXTRA_PHONE_NUMBER, phoneNumber);
                         startService(updateIntent);
+                        isInCall = true; // 将通话状态标志设置为true
                         break;
-                    case TelephonyManager.CALL_STATE_OFFHOOK:
+                    case TelephonyManager.CALL_STATE_OFFHOOK: // 电话接通状态
+                        isInCall = true; // 将通话状态标志设置为true
                         break;
                 }
             }
