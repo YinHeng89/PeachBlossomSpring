@@ -54,12 +54,13 @@ public class FloatingWindowService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-
+        // 设置悬浮窗口的位置和重力
         params.gravity = Gravity.CENTER | Gravity.TOP;
+        int parentHeight = windowManager.getDefaultDisplay().getHeight();
+        int verticalPosition = (int) (parentHeight / 4.5);
         params.x = 0;
-        params.y = 500;
+        params.y = verticalPosition;
 
-        windowManager.addView(floatingView, params);
 
         // 隐藏悬浮窗
         floatingView.setVisibility(View.GONE);
