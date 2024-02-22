@@ -1,4 +1,5 @@
 package com.contacts.peachblossomspring;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -13,26 +14,28 @@ public class CallService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
         TelephonyManager telephonyManager = getSystemService(TelephonyManager.class);
         telephonyManager.listen(new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String phoneNumber) {
                 super.onCallStateChanged(state, phoneNumber);
 
-                String stateString = "";
                 switch (state) {
                     case TelephonyManager.CALL_STATE_IDLE:
-                        stateString = "IDLE";
+                        // 通话结束，停止FloatingWindowService
+                        stopService(new Intent(CallService.this, FloatingWindowService.class));
                         break;
                     case TelephonyManager.CALL_STATE_RINGING:
-                        stateString = "RINGING";
+                        // 电话响铃，启动FloatingWindowService并显示悬浮窗
+                        Intent updateIntent = new Intent(CallService.this, FloatingWindowService.class);
+                        updateIntent.setAction(FloatingWindowService.ACTION_UPDATE_TEXT);
+                        updateIntent.putExtra(FloatingWindowService.EXTRA_PHONE_NUMBER, phoneNumber);
+                        startService(updateIntent);
                         break;
                     case TelephonyManager.CALL_STATE_OFFHOOK:
-                        stateString = "OFF-HOOK";
                         break;
                 }
-
-                Log.i("onCallStateChanged", "State: " + stateString + ", Phone Number: " + phoneNumber);
             }
         }, PhoneStateListener.LISTEN_CALL_STATE);
     }
