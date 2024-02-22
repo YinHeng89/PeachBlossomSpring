@@ -18,13 +18,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PHONE = "phone";
+    public static final String COLUMN_HEAD = "head";
+
+
 
     // 定义创建联系人表的SQL语句
     private static final String CREATE_CONTACTS_TABLE = "CREATE TABLE " +
             TABLE_CONTACTS + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_NAME + " TEXT, " +
-            COLUMN_PHONE + " TEXT)";
+            COLUMN_PHONE + " TEXT," +
+            COLUMN_HEAD + " TEXT)";
 
     // 定义DBHelper的构造函数
     public DBHelper(Context context) {
