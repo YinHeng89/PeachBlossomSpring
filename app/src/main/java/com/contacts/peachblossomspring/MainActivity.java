@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         // 启动 CallService 服务 添加日期2024-02-22 *//
         startService(new Intent(this, CallService.class));
 
+        // 在MainActivity中启动FloatingWindowService服务
+        startService(new Intent(this, FloatingWindowService.class));
+
         // 设置抽屉导航
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
