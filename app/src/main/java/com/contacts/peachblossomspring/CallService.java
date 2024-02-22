@@ -6,6 +6,12 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+<<<<<<< Updated upstream
+=======
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+>>>>>>> Stashed changes
 
 import androidx.annotation.Nullable;
 
@@ -14,6 +20,12 @@ public class CallService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // 实例化windowsView
+        windowsView = LayoutInflater.from(this).inflate(R.layout.floating_window, null);
+
+        // 获取WindowManager
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         TelephonyManager telephonyManager = getSystemService(TelephonyManager.class);
         telephonyManager.listen(new PhoneStateListener() {
