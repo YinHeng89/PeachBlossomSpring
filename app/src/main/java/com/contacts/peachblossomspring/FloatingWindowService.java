@@ -61,6 +61,10 @@ public class FloatingWindowService extends Service {
         params.x = 0;
         params.y = verticalPosition;
 
+        // 将悬浮窗口添加到WindowManager，并隐藏它
+        windowManager.addView(floatingWindows, params);
+        floatingWindows.setVisibility(View.GONE);
+    }
 
         // 隐藏悬浮窗
         floatingView.setVisibility(View.GONE);
