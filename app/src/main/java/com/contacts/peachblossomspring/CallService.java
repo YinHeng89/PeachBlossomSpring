@@ -26,6 +26,7 @@ public class CallService extends Service {
     private TextView textViewFloating;
     private DBHelper dbHelper;
     private boolean isInCall = false;
+    private final boolean isServiceDestroyed = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -86,20 +87,18 @@ public class CallService extends Service {
 
     // 处理来电
     private void handleIncomingCall(String phoneNumber) {
-        Intent intent = new Intent(CallService.this, CallService.class);
-        intent.setAction(ACTION_UPDATE_TEXT);
-        intent.putExtra(EXTRA_PHONE_NUMBER, phoneNumber);
-        startService(intent);
+        if (!isServiceDestroyed) {
+            updateFloatingWindowText(phoneNumber);
+            floatingWindow.setVisibility(View.VISIBLE);
+        }
         isInCall = true;
     }
 
+
     // 处理通话结束
     private void handleCallIdle() {
-        if (isInCall) {
-            isInCall = false;
-            Intent intentHide = new Intent(CallService.this, CallService.class);
-            intentHide.setAction(ACTION_HIDE_WINDOW);
-            startService(intentHide);
+        if (!isServiceDestroyed && isInCall && floatingWindow.getVisibility() == View.VISIBLE) {
+            hideFloatingWindow();
         }
     }
 
@@ -109,17 +108,16 @@ public class CallService extends Service {
             String action = intent.getAction();
             if (ACTION_UPDATE_TEXT.equals(action)) {
                 String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
-                updateFloatingWindowText(phoneNumber);
-                floatingWindow.setVisibility(View.VISIBLE);
+                if (!isServiceDestroyed) {
+                    updateFloatingWindowText(phoneNumber);
+                }
             } else if (ACTION_HIDE_WINDOW.equals(action)) {
                 hideFloatingWindow();
-            } else {
-                floatingWindow.setVisibility(View.GONE);
-                stopSelf();
             }
         }
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     // 更新悬浮窗口文本信息
     private void updateFloatingWindowText(String phoneNumber) {
@@ -127,9 +125,10 @@ public class CallService extends Service {
         textViewFloating.setText(name != null ? name : phoneNumber);
     }
 
-    // 隐藏悬浮窗口
+// 隐藏悬浮窗口
     private void hideFloatingWindow() {
-        floatingWindow.setVisibility(View.GONE);
-        stopSelf();
+        if (floatingWindow != null && floatingWindow.isAttachedToWindow()) {
+            floatingWindow.setVisibility(View.GONE);
+        }
     }
 }
