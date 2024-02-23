@@ -10,8 +10,8 @@ android {
         applicationId = "com.contacts.peachblossomspring"
         minSdk = 33
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.1.2"
+        versionCode = 1013
+        versionName = "1.0.1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
