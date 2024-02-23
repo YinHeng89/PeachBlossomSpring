@@ -10,7 +10,6 @@
         android:layout_width="140dp"
         android:layout_height="match_parent"
         android:padding="8dp"
-        android:text="联系人姓名"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />

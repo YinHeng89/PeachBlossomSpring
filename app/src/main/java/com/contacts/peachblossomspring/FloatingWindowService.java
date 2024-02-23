@@ -73,16 +73,22 @@ public class FloatingWindowService extends Service {
 
     /**
      * 根据联系人电话号码更新悬浮窗口中显示的文本，如果联系人姓名可用则显示姓名，否则显示电话号码。
+     *
      * @param phoneNumber 要显示的电话号码
      */
     public void updateFloatingWindowText(String phoneNumber) {
+        String currentText = textViewFloating.getText().toString();
+        // 根据电话号码获取联系人姓名
         String name = dbHelper.getContactNameByPhone(phoneNumber);
-        if (name != null) {
-            textViewFloating.setText(name);
-        } else {
-            textViewFloating.setText(phoneNumber);
+        // 如果联系人姓名不为空，则显示联系人姓名，否则显示电话号码
+        if (name != null && !name.equals(currentText)) {
+            textViewFloating.setText(name); // 设置悬浮窗口显示联系人姓名
+        } else if (!phoneNumber.equals(currentText)) {
+            textViewFloating.setText(phoneNumber); // 设置悬浮窗口显示电话号码
         }
     }
+
+    public static final String ACTION_HIDE_WINDOW = "com.contacts.peachblossomspring.ACTION_HIDE_WINDOW";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -92,10 +98,10 @@ public class FloatingWindowService extends Service {
                 if (ACTION_UPDATE_TEXT.equals(action)) {
                     String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
                     updateFloatingWindowText(phoneNumber);
-                    // 显示悬浮窗口
                     floatingWindows.setVisibility(View.VISIBLE);
+                } else if (ACTION_HIDE_WINDOW.equals(action)) {
+                    hideFloatingWindow();
                 } else {
-                    // 隐藏悬浮窗口并停止服务
                     floatingWindows.setVisibility(View.GONE);
                     stopSelf();
                 }
@@ -104,5 +110,14 @@ public class FloatingWindowService extends Service {
             }
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+
+    public void hideFloatingWindow() {
+        if (floatingWindows != null) {
+            // 隐藏悬浮窗口并停止服务
+            floatingWindows.setVisibility(View.GONE);
+        stopSelf();// 停止当前Service
+        }
     }
 }
